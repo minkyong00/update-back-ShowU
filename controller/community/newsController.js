@@ -7,7 +7,7 @@ import path from "path";
 const getAllNews = async (req, res) => {
   try {
     const news = await News.find({}, "title category description imageUrl");
-    console.log("Fetched News Data:", news);
+    // console.log("Fetched News Data:", news);
     res.status(200).json(news);
   } catch (error) {
     res.status(500).json({ 
@@ -20,7 +20,7 @@ const getAllNews = async (req, res) => {
 // 특정 뉴스 데이터 가져오기 (News)
 const getNewsById = async (req, res) => {
   const { id } = req.params;
-  console.log("id", id)
+  // console.log("=id=", id)
 
   if (!id || !id.match(/^[0-9a-fA-F]{24}$/)) {
     return res.status(400).json({ message: "유효하지 않은 ID 형식입니다." });
