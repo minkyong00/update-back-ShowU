@@ -1,6 +1,7 @@
 import TeamMatching from "../../models/showu/teamMatchingSchema.js";
 // import Upgrade from "../../models/users/upgradeSchema.js";
 import User from "../../models/users/userSchema.js";
+import ShowuVideo from "../../models/vod/showuVideoSchema.js";
 
 // const getMainLesson = async (req, res) => {
 //   try {
@@ -75,4 +76,25 @@ const getMainTeam = async (req, res) => {
   }
 }
 
-export { getMainTeam };
+//메인페이지 vod 불러오기
+const getMainVod = async (req, res) => {
+  try {
+    const foundVod = await ShowuVideo.find({}).lean();
+    console.log("foundVod", foundVod)
+
+    res.status(200).json({
+      mainVodSuccess: true,
+      message: "성공적으로 vod을 가져왔습니다",
+      vodList: foundVod,
+    });
+  } catch (error) {
+    console.error("getMainVod error:", error);
+
+    res.status(500).json({
+      mainVodSuccess: false,
+      message: "vod을 가져오는데 실패했습니다",
+    });
+  }
+}
+
+export { getMainTeam, getMainVod };
