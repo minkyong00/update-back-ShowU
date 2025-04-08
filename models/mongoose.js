@@ -7,13 +7,10 @@ import VodShowuVideo from "./vod/vodShowuVideo.js"
 import ShowuVideo from './vod/showuVideoSchema.js';
 import Space from './reservation/spaceSchema.js'
 import Show from './reservation/showSchema.js'
-import Lesson from './showu/lessonSchema.js'
-import Team from './showu/teamSchema.js'
 import Like from './reservation/likeSchema.js';
 import Reservation from './reservation/reservationSchema.js';
 import { format, addDays } from "date-fns";
 import mongoose from 'mongoose';
-import LessonResevation from './showu/lessonReservationSchema.js';
 import News from './community/newsSchema.js';
 import Audition from './community/auditionSchema.js';
 import NewsInfo from './community/newsInfoSchema.js';
@@ -26,6 +23,7 @@ import MdPayment from './shop/mdPaymentSchema.js';
 connect()
 
 // await .deleteMany()
+  await AuctionPayment.deleteMany();
 
 // const communityData = await Community.create(
 //   {
@@ -6407,7 +6405,7 @@ connect()
 
 // console.log(communityData)
 // console.log(mdData)
-console.log(auctionData)
+// console.log(auctionData)
 // console.log(showuvodData)
 // console.log(spaceData)
 // console.log(showData)
