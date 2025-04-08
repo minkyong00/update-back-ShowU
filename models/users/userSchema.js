@@ -24,6 +24,7 @@ const userSchema = new Schema({
         default : '대기'
     },
     upgradeRequestedAt : { type : Schema.Types.ObjectId, ref : 'Upgrade' },
+    pendingAuctionPayments: [{ type: Schema.Types.ObjectId, ref: "AuctionPayment" }], // 결제 대기 중인 낙찰
     createdAt: { type: String, default: getCurrentTime },
     updatedAt: { type: String, default: getCurrentTime },
 });

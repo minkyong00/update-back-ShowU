@@ -19,11 +19,12 @@ import TicketEvent from './reservation/ticketEventSchema.js';
 import AuditionInfo from './community/auditionInfoSchema.js';
 import AuctionPayment from './shop/auctionPaymentSchema.js';
 import MdPayment from './shop/mdPaymentSchema.js';
+import { Timestamp } from 'mongodb';
 
 connect()
 
 // await .deleteMany()
-  await AuctionPayment.deleteMany();
+  // await AuctionPayment.deleteMany();
 
 // const communityData = await Community.create(
 //   {
@@ -1265,6 +1266,18 @@ connect()
 //     category: "연극",
 //     auctionName: "베르사유의 장미 프로그램북 스페셜 에디션",
 //     auctionId: "111ABC",
+//     description: "상세 설명1",
+//     image: "/images/shop/auction/auction1.jpg",
+//     imageDetail: "/images/shop/auction/auction1-1.jpg",
+//     isHearted: "677630ae686ab95419a5a1dc",
+//     endTime: new Date("2025-04-15T23:59:00Z")
+//   },
+// );
+// const auctionData = await Auction.create(
+//   { 
+//     category: "연극",
+//     auctionName: "베르사유의 장미 프로그램북 스페셜 에디션",
+//     auctionId: "111ABC",
 //     time: "2일 11시간 23분",
 //     count: 60,
 //     unit: 1000,
@@ -1667,20 +1680,20 @@ connect()
 //     imageDetail: "/images/shop/auction/auction29-1.jpg",
 //     isHearted: "677630ae686ab95419a5a1dc"
 //   },
-//   { 
-//     category: "뮤지컬",
-//     auctionName: "프랑켄슈타인 앙리 렌티큘러 포스터 (카이VER.)",
-//     auctionId: "218ABC",
-//     time: "10시간 02분",
-//     count: 9,
-//     unit: 1000,
-//     bid: 33000,
-//     finalPrice: 33000,
-//     description: "상세 설명30",
-//     image: "/images/shop/auction/auction30.jpg",
-//     imageDetail: "/images/shop/auction/auction30-1.jpg",
-//     isHearted: "677630ae686ab95419a5a1dc"
-//   },
+  // { 
+  //   category: "뮤지컬",
+  //   auctionName: "프랑켄슈타인 앙리 렌티큘러 포스터 (카이VER.)",
+  //   auctionId: "218ABC",
+  //   time: "10시간 02분",
+  //   count: 9,
+  //   unit: 1000,
+  //   bid: 33000,
+  //   finalPrice: 33000,
+  //   description: "상세 설명30",
+  //   image: "/images/shop/auction/auction30.jpg",
+  //   imageDetail: "/images/shop/auction/auction30-1.jpg",
+  //   isHearted: "677630ae686ab95419a5a1dc"
+  // },
 // )
 
 // // MD 결제

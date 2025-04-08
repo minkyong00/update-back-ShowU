@@ -1,20 +1,13 @@
 import { model, Schema } from "mongoose";
-import { getCurrentTime } from "../../utils/utils.js";
 
-// 예약개념
 const auctionPaymentSchema = new Schema({
-  productName: { type: Schema.Types.ObjectId, ref: "Auction", required: true },
-  finalPrice: { type: Number, required: true },
-  quantity: { type: Number, required: true, default: 1 },
-  image: { type: String, required: true },
-  name: { type: String, required: true },
-  address: { type: String, required: true },
-  message: { type: String },
-  totalAmount: { type: Number, required: true },
-  deliveryFee: { type: Number, default: 3000 },
-  discount: { type: Number, default: 0 },
-  status: { type: String, default: "success", required: true },
-  paymentAt: { type: String, default: getCurrentTime },
+  auctionId: { type: Schema.Types.ObjectId, ref: "Auction", required: true },
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  amount: { type: Number, required: true }, //결제 금액
+  isPaid: { type: Boolean, default: false }, //결제 여부
+  createdAt: { type: Date, default: Date.now }, 
+  paidAt: { type: Date }, // 결제 시간
 });
+
 
 export default model("AuctionPayment", auctionPaymentSchema, "auctionPayment");
