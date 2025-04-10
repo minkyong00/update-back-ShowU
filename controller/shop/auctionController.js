@@ -54,13 +54,13 @@ const getAuctionProductById = async (req, res) => {
 const createBidCount = async (req, res) => {
   const { id } = req.params;
   const userId = req.user._id;
-  console.log("req.body", req.body);
+  // console.log("req.body", req.body);
   const { price } = req.body;
-  console.log(price)
+  // console.log(price)
 
   try {
     const foundAuction = await Auction.findOne({ _id : id }).lean();
-    console.log("foundAuction", foundAuction)
+    // console.log("foundAuction", foundAuction)
 
     if (!foundAuction) {
       return res.status(404).json({ 
@@ -69,6 +69,14 @@ const createBidCount = async (req, res) => {
 
     } else {
 
+      // 입찰가가 현재 높은 입찰가보다 높아야함
+      if(price <= foundAuction.currentHighestBid){
+        return res.status(400).json({
+          message : "입찰가는 현재 최고 입찰가보다 높아야 합니다."
+        })
+      }
+
+      
       const updateAuction = await Auction.updateOne(
         { _id : id },
         {
@@ -76,11 +84,16 @@ const createBidCount = async (req, res) => {
             bidHistory: [
               {
                 userId : userId,
-                price : price
-              }
+                price : price,
+                timestamp : new Date()
+              } 
             ],
           },
-          $inc : { count : 1 }
+          $inc : { count : 1 },
+          $set : {
+            currentHighestBid : price,
+            currentHighestUser : userId
+          }
         }
       )
 

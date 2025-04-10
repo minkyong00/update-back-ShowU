@@ -23,6 +23,18 @@ import { Timestamp } from 'mongodb';
 
 connect()
 
+// const defaultEndTime = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
+
+// await Auction.updateMany(
+//   { endTime: { $exists: false } }, // endTime이 없는 문서만 업데이트
+//   {
+//     $set: {
+//       endTime: defaultEndTime,
+//       isClosed: false
+//     }
+//   }
+// );
+
 // await .deleteMany()
   // await AuctionPayment.deleteMany();
 
