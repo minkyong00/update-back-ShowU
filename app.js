@@ -7,7 +7,8 @@ import rootRouter from './routes/index.js';
 import passport from 'passport';
 import { initializePassport } from './auth/auth.js';
 import path from 'path';
-import { fileURLToPath } from 'url' 
+import { fileURLToPath } from 'url'; 
+import './schedules/auctionSchedule.js'; //경매 스케줄러 실행
 
 // ES Modules에서 __dirname 설정
 const __filename = fileURLToPath(import.meta.url);
