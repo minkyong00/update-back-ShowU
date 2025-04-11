@@ -1,4 +1,5 @@
 import AuctionPayment from "../../models/shop/auctionPaymentSchema.js";
+import Auction from "../../models/shop/auctionSchema.js";
 import AuctionTossPayment from "../../models/shop/auctionTossPaymentSchema.js";
 import MdPayment from "../../models/shop/mdPaymentSchema.js";
 import MdTossPayment from "../../models/shop/mdTossPaymentSchema.js";
@@ -53,4 +54,37 @@ const getPaymentList = async (req, res) => {
   }
 }
 
-export { getPaymentList }
+const getPaymentPadding = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    console.log("userId", userId)
+    const foundPaymentPadding = await Auction.find({ currentHighestUser : userId, isClosed : true }).lean();
+    console.log("경매 미결제한 사용자, 경매 정보", foundPaymentPadding)
+    const foundBidHistory = foundPaymentPadding.map((item) => item.bidHistory.userId === userId)
+    // .map((e) => e)
+    // .map((bid) => bid.userId)
+    // .filter((bid) => bid.userId === userId)
+    console.log("경매 입찰 내역", foundBidHistory)
+    
+
+
+    if(!foundPaymentPadding){
+      return res.status(404).json({
+        message : "낙찰된 경매가 없습니다."
+      })
+    }
+
+    res.status(200).json({
+      message : "낙찰된 경매 미결제 내역을 성공적으로 가져왔습니다.",
+      paymentPadding : foundPaymentPadding 
+    })
+    
+
+  } catch (error) {
+    res.status(500).json({
+      message : "낙찰된 경매 미결제 내역을 가져오는 중 오류가 발생했습니다."
+    })
+  }
+}
+
+export { getPaymentList, getPaymentPadding }
