@@ -59,13 +59,7 @@ const getPaymentPadding = async (req, res) => {
     const userId = req.user._id;
     console.log("userId", userId)
     const foundPaymentPadding = await Auction.find({ currentHighestUser : userId, isClosed : true }).lean();
-    console.log("경매 미결제한 사용자, 경매 정보", foundPaymentPadding)
-    const foundBidHistory = foundPaymentPadding.map((item) => item.bidHistory.userId === userId)
-    // .map((e) => e)
-    // .map((bid) => bid.userId)
-    // .filter((bid) => bid.userId === userId)
-    console.log("경매 입찰 내역", foundBidHistory)
-    
+    console.log("경매 미결제한 사용자, 경매 정보", foundPaymentPadding)   
 
 
     if(!foundPaymentPadding){

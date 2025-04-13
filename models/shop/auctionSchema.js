@@ -24,6 +24,7 @@ const auctionSchema = new Schema({
   currentHighestUser: { type: Schema.Types.ObjectId, ref: "User" }, // 현재 가장 높은 가격을 입찰한 사용자
   endTime: { type: Date, required: true }, // 경매 마감 시간
   isClosed: { type: Boolean, default: false }, // 경매 종료 여부
+  isPaid : { type: Boolean, default: false }, // 경매 결제 여부
 });
 
 export default model("Auction", auctionSchema, "auction");
