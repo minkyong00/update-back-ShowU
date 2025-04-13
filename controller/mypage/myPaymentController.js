@@ -58,7 +58,9 @@ const getPaymentPadding = async (req, res) => {
   try {
     const userId = req.user._id;
     console.log("userId", userId)
-    const foundPaymentPadding = await Auction.find({ currentHighestUser : userId, isClosed : true }).lean();
+    const foundPaymentPadding = await Auction
+      .find({ currentHighestUser : userId, isClosed : true, isPaid : false }).lean(); 
+      // 가장 높은 입찰자와 유저 아이디가 같고, 마감된 경매, 미결제인 경매 정보만 가져옴
     console.log("경매 미결제한 사용자, 경매 정보", foundPaymentPadding)   
 
 
