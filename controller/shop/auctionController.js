@@ -111,4 +111,29 @@ const createBidCount = async (req, res) => {
   }
 }
 
-export { seedAuctionProducts, getAuctionProduct, getAuctionProductById, createBidCount };
+// 오늘 마감 경매만 가져오기
+const getTodayEnd = async (req, res) => {
+  try {
+    const foundBids = await Auction.find({}).lean();
+
+    // 오늘 마감인 제품만 필터링
+    const today = new Date();
+    const start = new Date(today.setHours(0, 0, 0, 0));
+    const end = new Date(today.setHours(23, 59, 59, 999));
+
+    const todayClosingAuctions = foundBids.filter(item => {
+      const endTime = new Date(item.endTime);
+      return endTime >= start && endTime <= end;
+    });
+
+    console.log("오늘 마감", todayClosingAuctions)
+
+    res.status(200).json(todayClosingAuctions)
+
+  } catch (error) {
+    console.error("오늘 마감 경매 가져오는 중 오류 발생", error);
+    return res.status(500).json({ message: "서버 오류가 발생했습니다." });
+  }
+}
+
+export { seedAuctionProducts, getAuctionProduct, getAuctionProductById, createBidCount, getTodayEnd };
