@@ -1,4 +1,5 @@
-import AuctionTossPayment from "../../models/shop/auctionTossPaymentSchema.js"; // Mongoose 모델 가져오기
+import Auction from "../../models/shop/auctionSchema.js";
+import AuctionTossPayment from "../../models/shop/auctionTossPaymentSchema.js"; 
 
 const auctionTossPayment = async (req, res) => {
   const {
@@ -13,7 +14,7 @@ const auctionTossPayment = async (req, res) => {
     userPhone,
     address,
     deliveryMessage,
-    userId, // 요청 본문에서 userId 받기
+    userId, 
   } = req.body;
 
   // 결제 요청 데이터 로그
@@ -26,7 +27,7 @@ const auctionTossPayment = async (req, res) => {
     const payment = new AuctionTossPayment({
       productId,
       quantity,
-      userId, // userId 저장
+      userId, 
       orderId,
       paymentKey,
       totalAmount: amount,
@@ -39,7 +40,14 @@ const auctionTossPayment = async (req, res) => {
       status: "success",
     });
 
-    await payment.save(); // 결제 정보를 MongoDB에 저장
+    await payment.save(); 
+
+    await Auction.updateOne(
+      { _id : productId },
+      {
+        $set : { isPaid :  true }
+      }
+    );
 
     // 결제 정보 저장 완료 로그
     console.log("결제 정보 저장 완료:", payment);

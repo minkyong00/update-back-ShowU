@@ -14,19 +14,20 @@ const confirmAuctionPayment = async (req, res) => {
       address,
       totalAmount,
       deliveryFee,
-      discount,
+      // discount,
     } = req.body;
+    
 
     const newPayment = new AuctionPayment({
-      productName,
-      finalPrice,
+      productName: Array.isArray(productName) ? productName[0] : productName,
+      finalPrice: Array.isArray(finalPrice) ? finalPrice[0] : finalPrice,
+      image: Array.isArray(image) ? image[0] : image,
       quantity,
-      image,
       name,
       address,
       totalAmount,
       deliveryFee,
-      discount,
+      // discount,
       status: "success", // 결제 상태 설정
     });
 
@@ -34,6 +35,7 @@ const confirmAuctionPayment = async (req, res) => {
 
     res.status(200).json({ message: "결제 성공", paymentId: newPayment._id });
   } catch (error) {
+    console.error("에러 발생", error)
     res.status(500).json({ message: "결제 실패", error: error.message });
   }
 };
