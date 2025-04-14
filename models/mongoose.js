@@ -25,10 +25,10 @@ connect()
 
 // const defaultEndTime = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
 
-// await Auction.updateMany(
-//   { isPaid: { $exists: false } }, // isPaid 필드가 없는 경우
-//   { $set: { isPaid: false } } // 기본값을 false로 설정
-// );
+await Auction.updateMany(
+  { isPaid: { $exists: false } }, 
+  { $set: { isClosed: false } } 
+);
 
 // await .deleteMany()
   // await AuctionPayment.deleteMany();

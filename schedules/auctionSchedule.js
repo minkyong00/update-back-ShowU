@@ -2,9 +2,12 @@ import cron from 'node-cron';
 import Auction from '../models/shop/auctionSchema.js';
 import User from '../models/users/userSchema.js';
 import nodemailer from 'nodemailer';
+import { getCurrentTime } from '../utils/utils.js';
 
 cron.schedule('* * * * *', async () => {
-  const now = new Date();
+  // const now = new Date();
+  const now = getCurrentTime();
+  
 
   // 마감시간이 지났고 아직 종료되지 않은 경매 찾기
   const auctions = await Auction.find({

@@ -1,4 +1,6 @@
+import moment from 'moment';
 import Auction from '../../models/shop/auctionSchema.js'
+import { getCurrentTime } from '../../utils/utils.js';
 
 const seedAuctionProducts = async (req, res) => {
 
@@ -117,13 +119,20 @@ const getTodayEnd = async (req, res) => {
     const foundBids = await Auction.find({}).lean();
 
     // 오늘 마감인 제품만 필터링
-    const today = new Date();
-    const start = new Date(today.setHours(0, 0, 0, 0));
-    const end = new Date(today.setHours(23, 59, 59, 999));
+    const now = getCurrentTime();
+    console.log("오늘", now)
+    const startOfDay = moment().startOf("day").add(9, "hours");
+    console.log("시작", startOfDay.toISOString())
+    const endOfDay = moment().endOf("day").add(9, "hours");
+    console.log("끝", endOfDay.toISOString())
+      
 
     const todayClosingAuctions = foundBids.filter(item => {
-      const endTime = new Date(item.endTime);
-      return endTime >= start && endTime <= end;
+      const endTime = moment(item.endTime);
+      console.log("마감시간", endTime)
+      // 범위 시작, 범위 끝, 단위 생략, 경계포함
+      // isBetween : momoent 메서드
+      return endTime.isBetween(startOfDay, endOfDay, null, '[]');
     });
 
     console.log("오늘 마감", todayClosingAuctions)

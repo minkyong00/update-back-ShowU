@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose"
+import { getCurrentTime } from "../../utils/utils.js";
 
 const auctionSchema = new Schema({
   auctionName: { type: String, required: true }, // 상품명
@@ -22,7 +23,7 @@ const auctionSchema = new Schema({
   ], //입찰한 가격들
   currentHighestBid: { type: Number, default: 0 }, //현재 가장 높은 가격
   currentHighestUser: { type: Schema.Types.ObjectId, ref: "User" }, // 현재 가장 높은 가격을 입찰한 사용자
-  endTime: { type: Date, required: true }, // 경매 마감 시간
+  endTime: { type: String, default: getCurrentTime }, // 경매 마감 시간
   isClosed: { type: Boolean, default: false }, // 경매 종료 여부
   isPaid : { type: Boolean, default: false }, // 경매 결제 여부
 });
