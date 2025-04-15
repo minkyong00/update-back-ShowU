@@ -1,8 +1,8 @@
 import cron from 'node-cron';
-import Auction from '../models/shop/auctionSchema.js';
 import User from '../models/users/userSchema.js';
 import nodemailer from 'nodemailer';
 import { getCurrentTime } from '../utils/utils.js';
+import TeamMatching from '../models/showu/teamMatchingSchema.js';
 
 cron.schedule('* * * * *', async () => {
   // const now = new Date();
@@ -11,18 +11,18 @@ cron.schedule('* * * * *', async () => {
   
 
   // 마감시간이 지났고 아직 종료되지 않은 경매 찾기
-  const auctions = await Auction.find({
-    endTime: { $lte: now },
+  const teams = await TeamMatching.find({
+    deadLine: { $lte: now },
     isClosed: false,
   });
 
-  for (const auction of auctions) {
-    auction.isClosed = true;
-    await auction.save();
+  for (const team of teams) {
+    team.isClosed = true;
+    await team.save();
 
     // 낙찰자에게 이메일 전송
-    if (auction.currentHighestUser) {
-      const user = await User.findById(auction.currentHighestUser);
+    if (team.currentHighestUser) {
+      const user = await User.findById(team.currentHighestUser);
       if (user && user.email) {
         // 이메일 전송 설정
         const transporter = nodemailer.createTransport({

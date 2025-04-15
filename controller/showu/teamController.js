@@ -13,16 +13,17 @@ const getTeamList = async (req, res) => {
 
         // team에 유저 정보 추가
         const enrichedTeams = foundTeam
-            .filter(team => team.status === "매칭 완료")
+            .filter(team => team.status === "개설 완료")
             .map(team => {
                 const userName = 
-                    foundUserName.find(user => user._id.toString() === team.teamLeader.toString());
+                foundUserName.find(user => user._id.toString() === team.teamLeader.toString());
                 // 사용자 정보를 team에 추가
                 return {
                     ...team,
                     userName: userName || null
                 };
-        });
+            })
+            .sort((a, b) => new Date(b.deadLine) - new Date(a.deadLine));
 
         console.log("enrichedTeams", enrichedTeams)
 

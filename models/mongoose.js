@@ -20,15 +20,20 @@ import AuditionInfo from './community/auditionInfoSchema.js';
 import AuctionPayment from './shop/auctionPaymentSchema.js';
 import MdPayment from './shop/mdPaymentSchema.js';
 import { Timestamp } from 'mongodb';
+import TeamMatching from './showu/teamMatchingSchema.js';
 
 connect()
 
 // const defaultEndTime = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
 
-await Auction.updateMany(
-  { isPaid: { $exists: false } }, 
-  { $set: { isClosed: false } } 
-);
+// await TeamMatching.updateMany(
+//   { isPaid: { $exists: false } }, 
+//   { $set: { isClosed: false } } 
+// );
+
+// await TeamMatching.updateMany(
+//   { $set: { isClosed: false } } 
+// );
 
 // await .deleteMany()
   // await AuctionPayment.deleteMany();

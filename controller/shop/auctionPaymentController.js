@@ -19,6 +19,7 @@ const confirmAuctionPayment = async (req, res) => {
     
 
     const newPayment = new AuctionPayment({
+      //프론트에서 배열로 오는 값을 string으로 변환
       productName: Array.isArray(productName) ? productName[0] : productName,
       finalPrice: Array.isArray(finalPrice) ? finalPrice[0] : finalPrice,
       image: Array.isArray(image) ? image[0] : image,
