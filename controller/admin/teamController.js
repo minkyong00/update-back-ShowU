@@ -88,7 +88,7 @@ const requestStatusComplete = async (req, res) => {
     await TeamMatching.updateOne(
       { _id: team._id },
       {
-        status: "매칭 완료"
+        status: "개설 완료"
       }
     );
 
@@ -123,7 +123,7 @@ const requestStatusReject = async (req, res) => {
     await TeamMatching.updateOne(
       { _id: teamId },
       {
-        status : "매칭 거절"
+        status : "개설 거절"
       }
     );
 
