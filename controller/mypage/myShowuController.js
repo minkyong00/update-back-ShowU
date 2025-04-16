@@ -27,7 +27,7 @@ const getMyTeamMatching = async (req, res) => {
       careerHistory : team.careerHistory
       
     }))
-      .filter((item) => item.status === "매칭 완료")
+      .filter((item) => item.status === "개설 완료")
 
     // 마이페이지에 필요한 팀매칭 완료 정보
     const myWaitingTeamsTeamList = await teamList.map((team) => ({
@@ -40,7 +40,7 @@ const getMyTeamMatching = async (req, res) => {
       deadLine : team.deadLine,
       careerHistory : team.careerHistory
     }))
-      .filter((item) => item.status === "매칭 대기")
+      .filter((item) => item.status === "개설 대기")
 
     // console.log("마이페이지에 필요한 팀 매칭 완료 정보 리스트 :", myCompletedTeamsList)
     // console.log("마이페이지에 필요한 팀 매칭 대기 정보 리스트 :", myWaitingTeamsTeamList)
