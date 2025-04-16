@@ -14,6 +14,7 @@ const getTeamList = async (req, res) => {
         // team에 유저 정보 추가
         const enrichedTeams = foundTeam
             .filter(team => team.status === "개설 완료")
+            .filter(team => !team.isClosed)
             .map(team => {
                 const userName = 
                 foundUserName.find(user => user._id.toString() === team.teamLeader.toString());

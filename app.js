@@ -9,6 +9,7 @@ import { initializePassport } from './auth/auth.js';
 import path from 'path';
 import { fileURLToPath } from 'url'; 
 import './schedules/auctionSchedule.js'; //경매 스케줄러 실행
+import './schedules/teamSchedule.js'; // 팀 매칭 스케줄러 실행
 
 // ES Modules에서 __dirname 설정
 const __filename = fileURLToPath(import.meta.url);
