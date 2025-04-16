@@ -26,8 +26,15 @@ try {
 // 경매 상품 조회
 const getAuctionProduct = async (req, res) => {
   try {
-    const products = await Auction.find(); 
-    res.status(200).json(products);
+    const products = await Auction.find({}).lean()
+    // console.log("경매 메인 상품들", products)
+
+    // 경매 종료는 제외하고 내림차순
+    const descendingProducts = products
+      .filter(auction => !auction.isClosed)
+      .sort((a, b) => new Date(a.endTime) - new Date(b.endTime));
+      
+    res.status(200).json(descendingProducts);
   } catch (error) {
     console.error("상품 데이터를 가져오는 데 실패했습니다.", error.message);
     res.status(500).send("상품 데이터를 가져오는 데 실패했습니다.");
@@ -120,22 +127,22 @@ const getTodayEnd = async (req, res) => {
 
     // 오늘 마감인 제품만 필터링
     const now = getCurrentTime();
-    console.log("오늘", now)
+    // console.log("오늘", now)
     const startOfDay = moment().startOf("day").add(9, "hours");
-    console.log("시작", startOfDay.toISOString())
+    // console.log("시작", startOfDay.toISOString())
     const endOfDay = moment().endOf("day").add(9, "hours");
-    console.log("끝", endOfDay.toISOString())
+    // console.log("끝", endOfDay.toISOString())
       
 
     const todayClosingAuctions = foundBids.filter(item => {
       const endTime = moment(item.endTime);
-      console.log("마감시간", endTime)
+      // console.log("마감시간", endTime)
       // 범위 시작, 범위 끝, 단위 생략, 경계포함
       // isBetween : momoent 메서드
       return endTime.isBetween(startOfDay, endOfDay, null, '[]');
     });
 
-    console.log("오늘 마감", todayClosingAuctions)
+    // console.log("오늘 마감", todayClosingAuctions)
 
     res.status(200).json(todayClosingAuctions)
 
