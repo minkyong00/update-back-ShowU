@@ -9,6 +9,7 @@ import reservationRouter from './reservation/reservationRouter.js';
 import communityRouter from './community/communityRouter.js';
 import mypageRouter from './mypage/mypageRouter.js';
 import adminRouter from './admin/adminRouter.js';
+import searchRouter from './search/searchRouter.js';
 
 const rootRouter = express.Router();
 
@@ -22,5 +23,6 @@ rootRouter.use("/showu", showuRouter)
 rootRouter.use("/shop", shopRouter)
 rootRouter.use("/vod", vodRouter)
 rootRouter.use("/reservation", reservationRouter)
+rootRouter.use("/search", searchRouter)
 
 export default rootRouter;
